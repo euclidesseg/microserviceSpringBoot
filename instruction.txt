@@ -1,0 +1,44 @@
+==== Breve eplicacion sobre los archivos
+
+---- pom.xml
+     Cordina a maven indica que dependencias instalar 
+     Como el servidor tomcat
+
+---- .\mvnw.cmd spring-boot:run
+     para ejecutar maven en windows
+
+---- mvnw
+     para ejecutar maven en linuz o mac
+
+---- src
+     Todo nuestro codigo final
+
+---- .mvnw
+     todos los archivos de maven
+     algo asi como un node-modules
+
+
+---- mvnw.cmd spring-boot:run
+     arrancar nuestra aplicacion
+
+
+     ===============================================================================================
+     PARA TRABAJAR CON SPRING BOOT EXSISTE UNA ESTRUCTURA DE ARCHIVOS PREESTABLECIDAS POR CONVENCION
+     ===============================================================================================
+
+---- /Controllers
+     UsuarioController.java
+     resibe la peticion y ejecuta la logica principal
+
+---- /Services
+     UsuarioService.java
+     todo lo que el usuario pude hacer en el sistema
+
+---- /Repositories
+     UsuarioRepository.java
+     Aqui se encuentra la logica para conectarse con la base de datos para
+     Consultas Sql 
+
+----/Models
+     UsuarioModel.java
+     Sirve para mapear o representar una tablad e la base de datos a una clase de java

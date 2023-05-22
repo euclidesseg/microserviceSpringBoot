@@ -1,0 +1,69 @@
+==== Ahora crearemos una api rest con sprint-boot
+==== con el crud completo, conectandonos a db 
+==== par esto a la hora de crear el proyecto debemos agregar las dependencias
+==== Mysql driver y Spring JPA y spring web
+==== tambien para esta ocacion escojemos la opcion de jar y no war incluimos la version 
+==== 11 de java y la version 2.7.9 de springn boot ademas de 
+
+==== CREACION DE ESTRUCTURA BASICA DE SPRING-BOOT =========
+==== Primero creamos una carpeta done iran nuestros servicios
+==== Luego creamos una carpeta done iran nuestros controladores
+==== creamos una para carpeta para nuestros modelos o entities
+==== y creamos una para nuestros repositorios
+
+============================================================================================
+        ===========FLUJO DE UNA PETICION BASICA DE SPRING-BOOT==========
+
+        ==== 1. El usuario realiza una petición HTTP mediante un navegador web 
+        ====    o una herramienta de API, por ejemplo, GET /users/1.
+        
+        ==== 2. La petición llega al controlador correspondiente de Spring Boot, 
+        ====    que se encarga de manejar las solicitudes HTTP y de proporcionar una respuesta al cliente.
+
+        ==== 3. El controlador utiliza un servicio de Spring Boot para obtener los datos
+        ====    necesarios para generar la respuesta.
+
+        ==== 4. El servicio utiliza un repositorio de Spring Boot para acceder a la base
+        ====    de datos y obtener o actualizar los datos necesarios. El repositorio se encarga
+        ====    de manejar la interacción con la base de datos.
+
+        ==== 5. El repositorio interactúa con un modelo de datos o entiti para saber que datos 
+        ====    traer o llevar hasta la base de datos
+
+        ==== 6. El servicio procesa los datos y crea una respuesta
+        ====    que se enviará al controlador.
+============================================================================================
+
+==== En la carpeta resources dentro del archivo propiertis
+==== Creamos la cadena de conexion para la base de datos
+
+==== Creamos el archivo UsuarioModel el cual representara la tabla con la que vamos a trabajar
+==== la configuramos tal cual se muestra en la controladores
+
+==== Ahora crearemos y configuraremos al archivo de repositori el cual usaremos para hacer
+==== la conexion con la base de datos.
+
+==== Configuramos a continuacion la el archivo service con el que interactuara nuestro controlador
+==== en ese servicio usaremos el repositorio que acabamos de crear en este servicio iran 
+==== nuestros metodos para manipular la informacion en la base de datos esta capa es conocida
+==== como la capa de negocio: 
+==== En términos de programación, la lógica de negocio se refiere a las operaciones y cálculos que
+==== deben realizarse en la aplicación para cumplir con los requisitos y objetivos de la misma
+
+==== Luego de crear nuestro servicio crearemos nuestros controladores para ejecutar la PETICION
+==== para ver detallado comentarios vallamos hasta el archivo
+
+==== probando la aplicacion para probar la aplicacion vamos a correr nuestra aplicacion 
+==== y seguido habrimos el puerto que tenemos configurado en aplication.properties
+
+
+
+
+
+
+==== Spring JPA (Java Persistence API) es una implementación de la especificación
+==== JPA que simplifica el proceso de acceder y manipular datos en una base de datos relacional
+==== utilizando objetos Java. Spring JPA proporciona una capa de abstracción entre
+==== la aplicación y la base de datos, permitiendo que la aplicación se concentre
+==== en el modelo de dominio y las reglas de negocio en lugar de preocuparse por
+==== los detalles de acceso a la base de datos. 
