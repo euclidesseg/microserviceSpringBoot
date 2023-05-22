@@ -14,13 +14,13 @@
 </div>
 
 ### Description 
-This repository has the content of java courses
-which I have been learning for a while as OOP java polymorphism,
+This repository has the content of the Java courses.
+I've been learning for a while how to OOP java polymorphism,
 abstraction,
 builders,
 overloading and overriding methods,
 classes and interfaces,
-And on this occasion I decided to implement what I learned by creating a microservice with relational db in postgres.
+And this time I decided to implement what I had learned by creating a microservice with a relational db in postgres.
 
 ### For run in VSC
 1. ```.\mvnw.cmd spring-boot:run```
