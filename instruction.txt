@@ -1,3 +1,11 @@
+==== MICROSERVICIOS =====
+---- Los microservicios son una arquitectura y estilo de programar software 
+---- en donde el proyecto principal se dividde en mircro proyectos o microservicios
+---- es decir, los microservicios dividen a las aplicaciones en pequeños elementos independientes entre si
+
+
+
+
 ==== Breve eplicacion sobre los archivos
 
 ---- pom.xml

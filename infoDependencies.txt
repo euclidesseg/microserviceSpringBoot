@@ -1,0 +1,49 @@
+1: 	spring-boot-starter-data-jpa:   simplifica la implementación de repositorios basados en JPA y ofrece  características adicionales, como consultas personalizadas, paginación y soporte 	para transacciones.
+
+2:	spring-boot-starter-web:   Esta dependencia incluye todas las bibliotecas necesarias para desarrollar 	aplicaciones web con Spring MVC. Proporciona un servidor web integrado y                  	otras características comunes 	necesarias para el desarrollo web, como la manipulación de solicitudes HTTP, 
+	la resolución de vistas y 	la gestión de controladores.
+
+3: 	hibernate-jpa-2.0-api: Esta dependencia proporciona las API de JPA (Java Persistence API) necesarias para trabajar con Hibernate como proveedor de persistencia. Hibernate es una 	biblioteca ORM (Mapeo Objeto-Relacional) popular y ampliamente utilizada en aplicaciones Java para interactuar con bases de datos relacionales.
+
+4:  	spring-boot-devtools: Esta dependencia proporciona herramientas de desarrollo adicionales para agilizar el ciclo de desarrollo en Spring Boot. Incluye características como la 	reinicialización automática de la aplicación en respuesta a cambios en el código fuente, la recarga en vivo de recursos estáticos y la configuración automática de un entorno de 	desarrollo óptimo.
+
+5: 	postgresql: Esta dependencia permite la integración de PostgreSQL
+
+6: 	spring-boot-starter-test: Esta dependencia contiene bibliotecas y utilidades para escribir pruebas unitarias y 
+	de integración en una aplicación de Spring Boot. Incluye herramientas 	como JUnit, 
+	Mockito y Spring Test para facilitar la escritura y ejecución de pruebas automatizadas.
+
+
+Nota: Cabe aclarar que  hibernate-jpa-2.0-api:  Usa el empaquetado de javax anterior mente inculioda dentro de JAVAEE, la cual fue reemplazada 
+      por jakarta desde la version 2.5 de spring boot:
+	
+	
+Conceptos y aclaraciones:
+JPA (java persistance API) es es una especificación de java para mapear objetos y guardarlos en una base de datos relacional  lo que hace
+referencia a persistencia
+Persistencia: Se refiere al acto de almacenar datos de forma permanente en un medio de almacenamiento persistente, como una base de datos,
+Jpa me permite usar anotaciones como 
+@Id
+@GeneratedValue
+@Column
+@Entity, etc
+ademas JPA proporsiona interfaces como CrudRepository y JPARepository para hacer operaciones de lectura y escritura en la db
+
+
+Hibernate mapea los objetos de java hasta la base de datos y viceversa 
+ademas me permite hacer las operaciones como create read update y delete
+
+aunque no veamos hibernate directamente en el codigo se puede inferir que esta siendo utilizado cuando usamos la inyecc*1ion de dependencia de una interface
+o intanciamos un objeto de una interface ej
+    @Autowired
+    ICarRepository carRepository;
+
+ya que el uso principal de hibernate son las operaciones de lecturay escritura
+
+
+en resumen:
+En un escenario típico, JPA se encarga del mapeo objeto-relacional y
+define las interfaces y anotaciones estándar para interactuar con la capa de persistencia. 
+Hibernate, como una implementación de JPA, se encarga de la implementación de esas interfaces y anotaciones,
+y proporciona la funcionalidad para realizar las operaciones de persistencia en la base de datos.
+
