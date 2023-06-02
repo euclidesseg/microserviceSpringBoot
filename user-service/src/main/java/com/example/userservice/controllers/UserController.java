@@ -47,11 +47,13 @@ import com.example.userservice.services.UserService;
          */
 
      @GetMapping("/{id}")
-     public Optional <UserModel> getUsuario(@PathVariable("id") int id){
+
+     public  Optional <UserModel> getUsuario(@PathVariable("id") int id) throws Exception{
         return   this.userService.getUsuarioByid(id);
      }
      // Notas debido a que este metodo retorna un optional 
      // si no encutra el usuario restornara un optional.empty() que sera nulo
+     // por lo que no se controla la excepcion 
 
 
      

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.carservice.models.CarModel;
@@ -45,7 +46,7 @@ public class CarController {
 
     // obtener cars
     @GetMapping()
-    public ResponseEntity<List<CarModel>> addCar(){
+    public ResponseEntity<List<CarModel>> getAll(){
 
         List<CarModel> listCars = this.carService.getAllCars();
 
@@ -63,8 +64,10 @@ public class CarController {
 
 
     // buscar por id del usuario 
-    @GetMapping("/usuarios/{userId}")
-    public ResponseEntity<List<CarModel>> getCarByUserId(@PathVariable("userId") int userId){
+    @GetMapping("/usuarios/query")
+    // @ query se consultaria de la siguiente manera
+     // /usuarios/query?userId=5
+    public ResponseEntity<List<CarModel>> getCarByUserId(@RequestParam("userId") int userId){
         List<CarModel>  listCars= this.carService.getByUserId(userId);
         if(listCars.isEmpty()){
             return ResponseEntity.noContent().build();

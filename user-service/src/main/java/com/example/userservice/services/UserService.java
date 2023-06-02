@@ -38,8 +38,12 @@ public class UserService {
      */
 
     // optional porque puede ser vacio
-    public Optional<UserModel> getUsuarioByid(int id) {
-        return userRepository.findById(id);
+    public Optional<UserModel> getUsuarioByid(int id) throws Exception {
+        try{
+            return userRepository.findById(id);
+        }catch(RuntimeException excep){
+            throw new Exception(excep.getMessage()); // error si es string me dara error 
+        }
     }
 
     public ArrayList<UserModel> getByPriodidad(int prioridad) {
@@ -56,3 +60,8 @@ public class UserService {
     }
 
 }
+
+/*
+ * La declaración "throws Exception" en el encabezado del método getUsuarioByid indica que el método 
+ * "getUsuarioByid" puede lanzar una excepción del tipo "Exception".
+ */

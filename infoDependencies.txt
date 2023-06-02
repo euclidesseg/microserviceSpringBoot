@@ -5,7 +5,7 @@
 
 3: 	hibernate-jpa-2.0-api: Esta dependencia proporciona las API de JPA (Java Persistence API) necesarias para trabajar con Hibernate como proveedor de persistencia. Hibernate es una 	biblioteca ORM (Mapeo Objeto-Relacional) popular y ampliamente utilizada en aplicaciones Java para interactuar con bases de datos relacionales.
 
-4:  	spring-boot-devtools: Esta dependencia proporciona herramientas de desarrollo adicionales para agilizar el ciclo de desarrollo en Spring Boot. Incluye características como la 	reinicialización automática de la aplicación en respuesta a cambios en el código fuente, la recarga en vivo de recursos estáticos y la configuración automática de un entorno de 	desarrollo óptimo.
+4:  spring-boot-devtools: Esta dependencia proporciona herramientas de desarrollo adicionales para agilizar el ciclo de desarrollo en Spring Boot. Incluye características como la 	reinicialización automática de la aplicación en respuesta a cambios en el código fuente, la recarga en vivo de recursos estáticos y la configuración automática de un entorno de 	desarrollo óptimo.
 
 5: 	postgresql: Esta dependencia permite la integración de PostgreSQL
 
