@@ -50,3 +50,16 @@
 ----/Models
      UsuarioModel.java
      Sirve para mapear o representar una tablad e la base de datos a una clase de java
+
+
+==== REST TEMPLATE ====
+---- Comunicacio de microservicios de java con restemplate
+
+---- para hacer la comunicacion entre microservicios vamos a ir hasta nuestro microservicio de UsuarioService
+---- a crear una carpeta configuracion ya que es ese el microservicio principal
+
+---- luego de crear esta configuracion en la carpeta configuration vamos a crear un nuevo paquete o caprpeta 
+---- modelos para guardar entidades de los demas microservicios como referencias
+---- despues de configurar las dos clases con su contructor y sus getter and setters
+
+---- Ahora vamos hasta nuestro servicio de usuario para injectar la clase configuration que hemos creados

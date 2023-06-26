@@ -66,8 +66,8 @@ public class CarController {
     // buscar por id del usuario 
     @GetMapping("/usuarios/query")
     // @ query se consultaria de la siguiente manera
-     // /usuarios/query?userId=5
-    public ResponseEntity<List<CarModel>> getCarByUserId(@RequestParam("userId") int userId){
+     // /usuarios/query?userid=5
+    public ResponseEntity<List<CarModel>> getCarByUserId(@RequestParam("userid") int userId){
         List<CarModel>  listCars= this.carService.getByUserId(userId);
         if(listCars.isEmpty()){
             return ResponseEntity.noContent().build();

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  import org.springframework.web.bind.annotation.RequestParam;
  import org.springframework.web.bind.annotation.RestController;
 
+import com.example.userservice.entities.Carro;
+import com.example.userservice.entities.Moto;
 import com.example.userservice.models.UserModel;
 import com.example.userservice.services.UserService;
 
@@ -92,4 +94,20 @@ import com.example.userservice.services.UserService;
         }
     }
 
+    // estos dos metodos se van a comunicar por restemplate desde el servicio hasta el microservicio de 
+    // carros y de motos con el fin de traer carros y motos por usuaios desde los dos microservicios restantes
+
+    // obtenermos los carros por id de usuario
+    @GetMapping(path = "/carros/{id}")
+    public List<Carro> getCarroByUserId(@PathVariable("id")int id){
+        List<Carro> listCarro = this.userService.getCarros(id);
+        return listCarro;
+    }
+
+    // obtenemos las motos por id de usuario
+    @GetMapping(path = "/motos/{id}")
+        public List<Moto> getMotoByUserId(@PathVariable("id")int id){
+        List<Moto> listMotos = this.userService.getMotos(id);
+        return listMotos;
+    }
  }
