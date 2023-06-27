@@ -17,6 +17,7 @@ import com.example.userservice.repositoryes.IUserRepository;
 public class UserService {
     @Autowired
     private RestTemplate restTemplate;
+    
     @Autowired
     private IUserRepository userRepository;
 
