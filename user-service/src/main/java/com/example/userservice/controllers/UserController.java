@@ -1,7 +1,7 @@
 package com.example.userservice.controllers;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +102,7 @@ public class UserController {
         if (!usuario.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        List<Carro> listCarro = this.userService.getCarros(id);
+        List<Carro> listCarro = this.userService.getCars(id);
         return ResponseEntity.ok(listCarro);
     }
 
@@ -116,5 +116,25 @@ public class UserController {
         List<Moto> listMotos = this.userService.getMotos(id);
 
         return ResponseEntity.ok(listMotos);
+    }
+
+    // este metodo se encargara de usar el servicio de feignclient para comunicarse con el microservico de carros y guardar un carro
+    @PostMapping(path = "/cars/{usuarioId}") // el usuarioId sreia el id del usuaio que asosriaremos al carro
+    public ResponseEntity<Carro> saveCar(@PathVariable("usuarioId") int id,  @RequestBody Carro car){
+        Carro newCar = this.userService.saveCar(id, car);
+        return ResponseEntity.ok(newCar);
+    }
+    // este metodo se encargara de usar el servicio de feignclient para comunicarse con el microservico de motos y guardar una moto
+    @PostMapping(path = "/motos/{usuarioId}")
+    public ResponseEntity<Moto> saveMoto(@PathVariable("usuarioId") int id,  @RequestBody Moto moto){
+        Moto newMoto = this.userService.saveMoto(id, moto);
+        return ResponseEntity.ok(newMoto);
+    }
+
+    // Este metodo me obtiene todos loe vehivulos de un usuario tanto motos como carros
+    @GetMapping(path = "/query2")
+    public ResponseEntity<Map<String, Object>> getMotosAndCarsByUser(@RequestParam("userid") int userid){
+        Map<String, Object> result = this.userService.getAllVehicles(userid);
+        return ResponseEntity.ok(result);
     }
 }

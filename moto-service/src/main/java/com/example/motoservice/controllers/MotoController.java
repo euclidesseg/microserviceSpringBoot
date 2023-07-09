@@ -60,8 +60,8 @@ public class MotoController {
     @GetMapping(path = "byusuario/query")
        // @ query se consultaria de la siguiente manera
      // /byusuario/query?usuarioid=5
-    public ResponseEntity <List<MotoModel>> getByUsuarioId(@RequestParam("usuarioid") int usuarioId){
-        List<MotoModel> listMoto = this.motoService.getByUsuarioId(usuarioId);
+    public ResponseEntity <List<MotoModel>> getByUsuarioId(@RequestParam("usuarioid") int usuarioid){
+        List<MotoModel> listMoto = this.motoService.getByUsuarioId(usuarioid);
         if(listMoto.isEmpty()){
             return ResponseEntity.noContent().build();
         }else{

@@ -3,8 +3,18 @@ package com.example.userservice.entities;
 public class Moto {
     private String marca;
     private String modelo;
+    private int usuarioId;
 
     public Moto(){}
+    
+    public int getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(int usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
 
     public String getMarca() {
         return marca;

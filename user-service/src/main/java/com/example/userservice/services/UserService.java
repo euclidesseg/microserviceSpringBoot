@@ -1,7 +1,9 @@
 package com.example.userservice.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,32 +12,23 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.userservice.entities.Carro;
 import com.example.userservice.entities.Moto;
+import com.example.userservice.feignClients.CarroFeignClient;
+import com.example.userservice.feignClients.MotoFeignClient;
 import com.example.userservice.models.UserModel;
 import com.example.userservice.repositoryes.IUserRepository;
 
 @Service
 public class UserService {
     @Autowired
-    private RestTemplate restTemplate;
-    
-    @Autowired
     private IUserRepository userRepository;
 
-    // los siguientes dos metodos estan usando restemplate para comunicarse con
-    // los microservicios de carro y moto
-    @SuppressWarnings("unchecked")
-    public List<Carro> getCarros(int usuarioId) {
-        String url = "http://localhost:4002/cars/usuarios/query?userid=";
-        List<Carro> listCarros = restTemplate.getForObject(url + usuarioId, List.class);
-        return listCarros;
-    }
+    @Autowired
+    private RestTemplate restTemplate;
 
-    @SuppressWarnings("unchecked")
-    public List<Moto> getMotos(int usuarioId) {
-        String url = "http://localhost:4003/motos/byusuario/query?usuarioid=";
-        List<Moto> listMotos = restTemplate.getForObject(url + usuarioId, List.class);
-        return listMotos;
-    }
+    @Autowired
+    private CarroFeignClient carroFeignClient;
+    @Autowired
+    private MotoFeignClient motoFeignClient;
 
     public UserModel save(UserModel user) {
         UserModel userSaved = this.userRepository.save(user);
@@ -79,6 +72,64 @@ public class UserService {
             return false;
         }
     }
+
+    // los siguientes dos metodos estan usando restemplate para comunicarse con
+    // los microservicios de carro y moto para obtener behivulos en funcion del i de
+    // usuario
+    @SuppressWarnings("unchecked")
+    public List<Carro> getCars(int usuarioId) {
+        String url = "http://localhost:4002/cars/usuarios/query?userid=";
+        List<Carro> listCarros = restTemplate.getForObject(url + usuarioId, List.class);
+        return listCarros;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Moto> getMotos(int usuarioId) {
+        String url = "http://localhost:4003/motos/byusuario/query?usuarioid=";
+        List<Moto> listMotos = restTemplate.getForObject(url + usuarioId, List.class);
+        return listMotos;
+    }
+
+    // FeignClient ================
+    public Carro saveCar(int usuarioId, Carro carro) {
+        carro.setUserId(usuarioId);
+        Carro nuevoCarro = carroFeignClient.save(carro);
+        return nuevoCarro;
+    }
+
+    public Moto saveMoto(int usuarioId, Moto moto) {
+        moto.setUsuarioId(usuarioId);
+        Moto nuevaMoto = motoFeignClient.save(moto);
+        return nuevaMoto;
+    }
+
+    // el sigiuente metodo me va a obtener tanto motos y carros por usuario
+    public Map<String, Object> getAllVehicles(int usuarioid){
+        Map<String, Object> result = new HashMap<>();
+        UserModel usuario = this.userRepository.findById(usuarioid).orElse(null);
+
+        if(usuario == null){
+            result.put("Mensaje", "Esto usuario no existe");
+            return result;
+        }else{
+            result.put("Usuario",usuario);
+            List<Carro> carros = carroFeignClient.getAllCarrosByUsuario(usuarioid);
+            if(carros.isEmpty()){
+                result.put("Carro,", "El usuairo no tiene carros");
+            }else{
+                result.put("Carros", carros);
+            }
+            List<Moto> motos = motoFeignClient.getAllMotosByUsuario(usuarioid);
+            if(motos.isEmpty()){
+                result.put("Motos", "El usuario no tiene motos");
+            }else{
+                result.put("Motos", motos);
+            }
+        }
+        return result;
+
+    }
+    // ========================================
 
 }
 
