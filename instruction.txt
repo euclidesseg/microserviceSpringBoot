@@ -105,3 +105,22 @@
 ---- Ahora haremos lo mismo para con el servicio de moto lo usaremos como cliente Feign Desde user-service
 ---- Si estás utilizando Feign para comunicarte con un microservicio remoto, es importante que definas las rutas
 ---- y métodos en tu cliente Feign de manera coherente con el controlador del microservicio remoto al que te estás conectando.
+
+
+///////////////////////////////////////////////////////////////////
+==== SERVIDOR DE CONFIGURACION CON GIT ====
+---- En arquitectura distribuidas, con multiples microservicios desplegados en distintos servidores realizar
+---- cambios en cada una de ellas puede ser una tarea compleja
+
+---- Spring cloud config es una herramienta que permite exteriorizar y centralizar la configuracion de los microservicios en un solo 
+---- lugar lo que facilita enormemente la administracion de la configuracion del sistema.
+
+---- vamos a crear un repositorio en gihub y en ese repositorio estara la configuracion de nuestro servicio 
+---- y spring cloud config nos va a permitir extraer la configuracion de ese repositorio
+---- nos ayuda a gestrionar la configuracion de un sistema basado en multiples servicios
+
+---- ya que vamos a usas spring cloud config usaremos ya que esta herramienta utiliza git por default como repositorio
+
+---- Entonces lo que va a ser el servidor de configuracion de git es: 
+---- 1 va a ir hasta el repositorio de git en donde van a estar alojadas las configuraciones de cada servicio
+---- 2 despues de tomadas las va a asignar a cada microservicio correspondiente
