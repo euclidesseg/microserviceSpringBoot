@@ -43,6 +43,8 @@ spring:                  = cloud indica que spring cloud config server es quien 
 
 
 ---- Ahora en la clase principal del proyecto de config server agregamos una anotacion
+---- @EnableConfigServer = habilita el servidor de configuracion y permita tener la informacion del repositorio GitHub */
+
 ---- vamos a nuestra terminal y mediante mkdir crearmos la carpeta config-data
 ---- haora dentro de config-data creamos un archivo touch motos-service.yaml estr archivo trndra la configuracion del servicio de motos
 ---- tambien creamros carros-service.yaml
