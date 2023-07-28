@@ -52,6 +52,18 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 			 <version>3.0.4</version> 
 		</dependency>
+		<dependency>
+				<!--Esta dependencia nos ayudara a que este microservicios se comporte como un cliente de configuracion para el servicio que se comunicara co el servidor de configuracion-->
+    		<groupId>org.springframework.cloud</groupId>
+    		<artifactId>spring-cloud-config-client</artifactId>
+    		<version>3.0.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-bootstrap -->
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-bootstrap</artifactId>
+		    <version>3.1.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

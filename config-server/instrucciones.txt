@@ -1,0 +1,94 @@
+///////////////////////////////////////////////////////////////////
+==== SERVIDOR DE CONFIGURACION CON GIT ====
+---- En arquitectura distribuidas, con multiples microservicios desplegados en distintos servidores realizar
+---- cambios en cada una de ellas puede ser una tarea compleja
+
+---- Spring cloud config es una herramienta que permite exteriorizar y centralizar la configuracion de los microservicios en un solo 
+---- lugar lo que facilita enormemente la administracion de la configuracion del sistema.
+
+---- vamos a crear un repositorio en gihub y en ese repositorio estara la configuracion de nuestro servicio 
+---- y spring cloud config nos va a permitir extraer la configuracion de ese repositorio
+---- nos ayuda a gestrionar la configuracion de un sistema basado en multiples servicios
+
+---- ya que vamos a usas spring cloud config usaremos ya que esta herramienta utiliza git por default como repositorio
+
+---- Entonces lo que va a ser el servidor de configuracion de git es: 
+---- 1 va a ir hasta el repositorio de git en donde van a estar alojadas las configuraciones de cada servicio
+---- 2 despues de tomadas las va a asignar a cada microservicio correspondiente
+
+
+---- Es importante tener el repositorio de git y subir el proyecto
+---- luego de eso creamos un nuevo proyecto en spring initializer
+---- y descargamos la dependencia config server
+
+---- creamos un nuevo proyecto qaue figurara como nuestro config server este debe llevar
+---- la dependencia config-server y spring dev tools
+
+---- ahora este nuevo proyecto lo pondremos a trabajar con un archivo yaml para almacenar sus propiedades
+---- y agregamos la siguiente configuracion
+
+server:                  = 
+    port: 4000           = indicamos el puerto en el que correra este servicio
+spring:                  = cloud indica que spring cloud config server es quien manejara este servidor de 
+    cloud:               = configuracion
+        config:
+            server:
+                git:     = indicamos que el servidor de configuracion estara alojado en git 
+                    default-label: config-server       = indico la rama del repositorio en donde se va a guardar la configuracion
+                    uri: https://github.com/euclidesseg/microserviceSpringBoot   = repositorio de git
+                    search-paths: config-data                                    = la configuracion se guardara en la carpeta config data
+    application:
+        name: config-service                                                     = nombre de este servicio el cual accedera al servidor de configuracion
+
+
+
+---- Ahora en la clase principal del proyecto de config server agregamos una anotacion
+---- vamos a nuestra terminal y mediante mkdir crearmos la carpeta config-data
+---- haora dentro de config-data creamos un archivo touch motos-service.yaml estr archivo trndra la configuracion del servicio de motos
+---- tambien creamros carros-service.yaml
+---- y usuario-service.yaml
+
+---- cada archivo tendra la configuracion como el nombre del servicio el puerto del microsrvicio
+---- en si la configuracion especial de cada uno de lo smicroservicios
+
+---- en el archivo de configuracion de car-service.yaml agregamos exsactamente las propiedades que estan dentro del property
+---- de nuestro servicio de carros
+
+---- de igual manera haremos con el resto de microservicios y archivos yaml
+
+
+==== Siguiente ====
+---- si recuredamos cuando usamos feign client en el microservicio de usurios para volver clientes a los demas servicios
+---- ahora en cada uno de los microservicios vamos a instalar una dependencia llamada config client para volverlos clientes de configuracion
+
+
+---- <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-config-client</artifactId>
+        <version>3.0.7</version>
+    </dependency>
+
+
+==== Siguiente ==== 
+---- ahora lo siguietne es agregar otra dependencia que se llama bootstrap 
+---- Esta dependencia se utiliza en aplicaciones basadas en Spring Boot y Spring Cloud para cargar
+---- la configuración de forma temprana durante el proceso de inicio de la aplicación.
+
+
+==== Lo siguiente  ====
+---- vamos a renombrar todos los aplications.properti de nuestros microservicios para bootstrap.yaml
+---- y agregamos la configuracion dependiendo el microservicio
+
+spring:
+    application:
+        name: car-service
+
+
+    cloud:
+        config:
+            enabled: true
+            uri: http://localhost:4000
+
+---- Al configurar el cliente de Spring Cloud Config en el microservicio y proporcionar 
+---- la URI del servidor de configuración, estoy indicando al microservicio que debe obtener
+---- su configuración a partir de este servidor centralizado

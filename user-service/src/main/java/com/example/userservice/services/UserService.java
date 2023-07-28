@@ -127,7 +127,12 @@ public class UserService {
             }
         }
         return result;
-
+        /* En este método, se utiliza un objeto Map<String, Object> llamado result para almacenar y devolver
+           la información de un usuario junto con sus carros y motos (si los tiene).
+           El mapa actúa como una estructura de datos clave-valor, donde las claves son cadenas de 
+           texto y los valores son objetos. El método busca un usuario por su ID en el repositorio y,
+            si se encuentra, se agregan sus detalles al mapa. Luego, se obtienen los carros y motos 
+            asociados al usuario utilizando servicios externos (FeignClient)*/
     }
     // ========================================
 
