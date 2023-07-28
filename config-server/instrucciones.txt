@@ -43,8 +43,6 @@ spring:                  = cloud indica que spring cloud config server es quien 
 
 
 ---- Ahora en la clase principal del proyecto de config server agregamos una anotacion
----- @EnableConfigServer = habilita el servidor de configuracion y permita tener la informacion del repositorio GitHub */
-
 ---- vamos a nuestra terminal y mediante mkdir crearmos la carpeta config-data
 ---- haora dentro de config-data creamos un archivo touch motos-service.yaml estr archivo trndra la configuracion del servicio de motos
 ---- tambien creamros carros-service.yaml
@@ -94,3 +92,8 @@ spring:
 ---- Al configurar el cliente de Spring Cloud Config en el microservicio y proporcionar 
 ---- la URI del servidor de configuración, estoy indicando al microservicio que debe obtener
 ---- su configuración a partir de este servidor centralizado
+
+---- enabled: true: Con esta propiedad, se habilita el cliente de Spring Cloud Config en tu microservicio.
+---- Si está establecido en true, el microservicio buscará la 
+---- configuración en el servidor de configuración centralizado especificado en la propiedad uri.
+---- uri: http://localhost:4000: Aquí proporcionas la URL del servidor de configuración de Spring Cloud
