@@ -1,15 +1,12 @@
 server:
   port: 4001
-
 spring:
   application:
     name: user-service
-
   datasource:
     url: jdbc:postgresql://localhost:5433/springServices
     username: postgres
     password: masterkey
-
   jpa:
     hibernate:
       ddl-auto: update
