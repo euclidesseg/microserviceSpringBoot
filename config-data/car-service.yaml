@@ -1,15 +1,12 @@
 server:
   port: 4002
-
 spring:
   application:
     name: car-service
-
   datasource:
     url: jdbc:postgresql://localhost:5433/springServices
     username: postgres
     password: masterkey
-
   jpa:
     hibernate:
       ddl-auto: update
