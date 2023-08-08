@@ -91,7 +91,8 @@ spring:
 
 ---- Al configurar el cliente de Spring Cloud Config en el microservicio y proporcionar 
 ---- la URI del servidor de configuración, estoy indicando al microservicio que debe obtener
----- su configuración a partir de este servidor centralizado
+---- su configuración a partir de este servidor centralizado pero no desde local si no desde el servidor de git es decir que los cambios
+---- que hagamos deben estar proveidos en el repositorio que s de donde se obtendran los cambios del servidor de configuracion.
 
 ---- enabled: true: Con esta propiedad, se habilita el cliente de Spring Cloud Config en tu microservicio.
 ---- Si está establecido en true, el microservicio buscará la 
