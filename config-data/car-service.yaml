@@ -10,3 +10,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+eureka:
+  client:
+    fetch-registry: true
+    register-witch-eureka: true
+    service-url:
+      default-zone: http://localhost:4000/eureka
+    instance: localhost

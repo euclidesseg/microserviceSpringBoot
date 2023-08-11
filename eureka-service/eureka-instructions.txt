@@ -1,0 +1,62 @@
+==== Eureka ====
+---- Es hora de empezar a ver que es eureka 
+
+---- Eureka es un servidor para el registro y localizacion de microservicios, balanceo de carga y tolereancia a 
+---- fallos. La funcion de eureka es registrar las diferentas instancias de microservicios existentes,
+---- su localizacion, estado, etc:
+
+---- Es decir, es un servidor parecido al (IIS) de microsoft solo que eureka es solo para spring-boot
+---- Eureka registra los microservicios que tengamos, es decir, cuando ejecutamos un microservicio eso se llama un aintancia 
+---- del microoservicio, entonces estas instancias se guardaran dentro de nuestro servidor eureka
+
+---- Eureka proporciona localizacion fisica de los microservicios: cualquier microservici que se un cliente Eureka, solo necesita
+---- conocer su identificador del microservicio al que desea invicar y eureka agregara su localizacion
+---- Ademas proporciona un darhboard que permite ver los microservicios existente actualmente en el registro.
+
+
+---- NOTA: si un microservicios no se notifica en un periodo de 30 segundo entonces el servidor lo elimina.
+
+==== IMPLEMENTACION =====
+---- para implementar el servidor eureka nos creamos un nuevo proyecto de spginr boot y como este proyecto 
+---- tambien obtendra su configuracion desde el servidor de configuracion nos descargamos las dependencias Config Client 
+---- eureka server y bootstrap
+
+---- este ademas de ser un cliente del servidor de configuracion tanbien sera un servidor para los demas microservicios
+---- entonces vamos a agreagr una anotacion a su clase principal @EnableEurekaServer
+
+---- lo siguiente es crear su archivo de configuracion dentro del servidor de config data que es ahi donde el servidor 
+---- de configuracion guarda la configuracion de los microservicios y dentro de este nuevo archivo agregamos 
+---- server:
+      port: 4000
+    eureka:
+      client:
+        fetch-registry: false
+        register-witch-eureka: false
+
+---- donde  fetch-registry: false, y  register-witch-eureka: false  hace referencia a que archivo al ser el servidor eureka 
+---- no sera cliente como los microservicios 
+
+---- seguido vamos a cada archivo yaml de los microservicios en config data para agregar 
+---- eureka:
+  client:
+    fetch-registry: true
+    register-witch-eureka: true
+    service-url:
+      default-zone: http://localhost:4000/eureka
+    instance: localhost
+
+---- esto indica que cada microoservicio sera un cliente para eureka y obtendra esa configuracion en esa ruta indicada
+---- todo lo que esta en true indica que estos microservicios van a tener configuracion en eureka server e instance 
+---- indica que sera instancia de localhost
+
+---- ahora vamos a cada servicio a agregar la siguiente dependencia que indicara que sera un cliente eureka
+---- <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+
+---- seguido nos la clase principal de cada microservicio a añadir una anotacion 
+---- @EnableEurekaClient // habilita la instancia de este servicio al ejecutarse, para que se registre en el servidor de eureka
+
+---- paa que todo quede listo debido a que creamos una nueva rama vamos a nuestro config server para cambiar la rama a eureka
+ 

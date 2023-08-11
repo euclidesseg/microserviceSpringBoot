@@ -60,6 +60,11 @@
 		    <groupId>org.springframework.cloud</groupId>
 		    <artifactId>spring-cloud-starter-bootstrap</artifactId>
 		</dependency>
+			<!-- la siguiente dependencia me dice que cuando este servicio se corra su intancia su guardara en eureka client -->
+		<dependency>
+    		<groupId>org.springframework.cloud</groupId>
+    		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
