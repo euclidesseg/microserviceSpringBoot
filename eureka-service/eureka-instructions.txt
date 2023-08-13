@@ -33,8 +33,8 @@
         fetch-registry: false
         register-witch-eureka: false
 
----- donde  fetch-registry: false, y  register-witch-eureka: false  hace referencia a que archivo al ser el servidor eureka 
----- no sera cliente como los microservicios 
+---- donde  fetch-registry: false, y  register-witch-eureka: false  hace referencia a que el servidor eureka 
+---- no sera cliente como los microservicios ya que es el servidor es decir no se va a mostrar en el dashboard
 
 ---- seguido vamos a cada archivo yaml de los microservicios en config data para agregar 
 ---- eureka:
@@ -59,4 +59,37 @@
 ---- @EnableEurekaClient // habilita la instancia de este servicio al ejecutarse, para que se registre en el servidor de eureka
 
 ---- paa que todo quede listo debido a que creamos una nueva rama vamos a nuestro config server para cambiar la rama a eureka
+
+==== MULTIPLES INSTANCIAS DE MICROSERVICIOS ====
+---- realizaremos una configuracion para que no importe si un microservicio se ejecuta 1 o 10 veces
+---- cada una de esas se va a guardar como una instancia en eureka, si bien cuando vemos el dashboard de eureka 
+---- nos damos cuenta que cada microservicio tiene un numero al lado entre parentecis (1) eso significa que solo tiene una instancia de 
+---- ejecucion
+
+---- para hacer que cada ejecucion de microservicios sea una intancia vamos al yaml de eureka dentro de config-data(bootstrap.yaml)
+---- para agregar:
+----  service-url:
+      default-zone:
+        default-zone: http//${eureka.instanse.hostname}:${server.port}/eureka/
  
+---- La configuración service-url establece la dirección en la que los microservicios 
+---- se comunicarán con el servidor de registro y descubrimiento Eureka. Específicamente.
+---- default-zone:  define la URL predeterminada a la que se conectarán los microservicios.
+
+
+---- a continuacion tambien le vamos a cambiar la configuracion a los yaml de cada microservicios dentro del config data con el fin de 
+---- indicar la nueva ruta de acceso al servidor de reureka
+
+---- agregamos lo siguiente:
+---- server:
+       port: ${PORT:${SERVER_PORT:0}}  con esto inficamos que el microservicio de carros va a tener un puerto por defecto y no espesificado por uno
+
+----  service-url:
+        default-zone: http://localhost:8761/eureka
+      instance:
+        instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+---- eureka.client.service-url.defaultZone: Especifica la URL del servidor Eureka al que el cliente Eureka se conectará.
+
+---- eureka.instance.instance-id: Establece un identificador único para la instancia del microservicio en el formato 
+---- "nombre_del_microservicio:valor_aleatorio".
