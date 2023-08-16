@@ -1,0 +1,20 @@
+==== Gateway =====
+---- Mientras implementamos multiples servicios de eureka nos dimos cuenta que, el config data de cada
+---- microservicio lo que hace es dar un puerto por defecto a cada instancia entonces para provar eso en el postman 
+---- se nos vuelve tedioso es par eso que se implementa un servicio Gateway para no lidiar con todas esas instancias y sus pueertos
+
+---- Gateway traduse puerta de enlace y su funcionalidad es:
+---- Permitirnos la comunicacion e intercambi de informacion 
+-----con fiferentes sistemas o servicios desde la misma ip
+
+---- entonces creamos en spring initializer un nuevo proyecto llamado gateway service con las siguientes dependencias
+---- spring web 
+---- spring dev tools
+---- spring routing  --- esta me va a permitir redireccionar a los microservicios mediante un puerto
+---- config-client   --- esta debido a que este sergvicio va a ser un cliente de config server
+---- eureka-client   --- esta devido a que este servicio tambien sera proevido en eureka server para guardar su instancia
+
+---- Modificamos el aplication.properti por bootstrap 
+---- la dependencias de bootstrap la debemos agregar manualmente y que no se descarga desde el spting initializer
+---- en su clase principal indicamos que que sera un cliente de eureka con @EnableEurekaClient
+
