@@ -18,3 +18,45 @@
 ---- la dependencias de bootstrap la debemos agregar manualmente y que no se descarga desde el spting initializer
 ---- en su clase principal indicamos que que sera un cliente de eureka con @EnableEurekaClient
 
+==== Creamos su archivo en vonfig-service (servidor de configuracion) ====
+---- ahora crearemos su archivo de configuracion dentro de config-data 
+---- en donde pondremos el puerto el cual no sera por defecto si no que sera un oespecifico o estatico 
+---- igualmente la instancia o hostname sera fija como localhost
+
+---- segido de esa configuracion pondremos:
+---- spring:
+        cloud:
+          gateway:
+            discovery:
+              locator:
+                enabled: true
+            routes:
+              - id: user-service
+                uri: lb://usuario-service
+                predicates:
+                  - Path=/usuario/**
+
+==== Configuración del Enrutamiento en Spring Cloud Gateway ====
+
+---- spring:                Sección que contiene la configuración específica de Spring Framework.
+------ cloud:                 Subsección que se relaciona con las capacidades de nube y configuración de Spring Cloud.
+-------- gateway:               Subsección que configura la funcionalidad de enrutamiento en Spring Cloud Gateway.
+--------- discovery:         Subsección que configura la integración con el servicio de descubrimiento (Eureka u otro).
+---------- locator:           Subsección que configura el uso de la funcionalidad de localización/descubrimiento.
+----------- enabled:       Habilita la funcionalidad de descubrimiento en el enrutador de Spring Cloud Gateway.
+--------- routes:                Lista de rutas que el enrutador debe manejar.
+---------- - id:                Identificador único para la ruta.
+------------ uri:               URI de destino de la ruta, puede ser una instancia de servicio registrado.
+------------ predicates:        Lista de predicados que deben cumplirse para que la ruta sea activada.
+------------- - Path:         Predicado que se activa cuando la ruta se ajusta a un patrón de ruta específico ("/usuario/**" en este caso).
+
+---- y desde aqui:  - id: user-service
+                uri: lb://usuario-service
+                predicates:
+                  - Path=/usuario/**
+---- devemos compiar uno para cada servicio que queramos enrutar
+
+
+---- NOTA: El descubrimiento en el contexto de la arquitectura de microservicios se refiere a la 
+---------- capacidad de encontrar y localizar automáticamente servicios en una red sin necesidad 
+---------- de conocer de antemano las direcciones IP o las ubicaciones exactas de dichos servicios.

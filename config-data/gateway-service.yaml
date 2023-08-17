@@ -1,0 +1,40 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: moto-service
+  datasource:
+    url: jdbc:postgresql://localhost:5433/springServices
+    username: postgres
+    password: masterkey
+  jpa:
+    hibernate:
+      ddl-auto: update
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: user-service
+          uri: lb://usuario-service
+          predicates:
+            - Path=/usuario/**
+        - id: car-service
+          uri: lb://car-service
+          predicates:
+            - Path=/car/**
+        - id: moto-service
+          uri: lb://moto-service
+          predicates:
+            - Path=/moto/**
