@@ -60,3 +60,20 @@
 ---- NOTA: El descubrimiento en el contexto de la arquitectura de microservicios se refiere a la 
 ---------- capacidad de encontrar y localizar automáticamente servicios en una red sin necesidad 
 ---------- de conocer de antemano las direcciones IP o las ubicaciones exactas de dichos servicios.
+
+
+---- ID (Identificador): En este caso, el "id" se refiere a un identificador único para el enrutador o 
+---- la configuración del servicio que estás definiendo. Puede ser un nombre descriptivo para identificar el microservicio o 
+---- la ruta en cuestión. Por ejemplo, "user-service" podría ser el identificador de un microservicio que maneja la 
+---- lógica relacionada con los usuarios.
+---- 
+---- URI (Uniform Resource Identifier): La "uri" se refiere a la ubicación del recurso al que se dirigirá la solicitud entrante.
+---- En este caso, "lb://" se utiliza para indicar que estás haciendo referencia a un balanceador de carga. 
+---- "lb://" se utiliza como un prefijo para indicar que la solicitud debe ser enviada a través de un equilibrador 
+---- de carga antes de llegar al microservicio real. El equilibrador de carga distribuirá las solicitudes entrantes 
+---- entre las instancias del microservicio para lograr una distribución uniforme de la carga de trabajo.
+---- 
+---- Predicates (Predicados): Los predicados son condiciones o reglas que se aplican a una solicitud entrante para 
+---- determinar si debe ser dirigida a un servicio específico. En este caso, el predicado "Path=/users/" 
+---- se usa para verificar si la ruta de la solicitud coincide con el patrón "/users/". 
+---- Esto significa que cualquier solicitud que comience con "/users/" será dirigida al microservicio identificado por el "id".
