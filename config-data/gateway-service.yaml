@@ -12,15 +12,15 @@ spring:
         - id: user-service
           uri: lb://usuario-service
           predicates:
-            - Path=/usuario/**
+            - Path=/users/**
         - id: car-service
           uri: lb://car-service
           predicates:
-            - Path=/car/**
+            - Path=/cars/**
         - id: moto-service
           uri: lb://moto-service
           predicates:
-            - Path=/moto/**
+            - Path=/motos/**
 eureka:
   client:
     fetch-registry: true
