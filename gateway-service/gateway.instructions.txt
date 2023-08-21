@@ -77,3 +77,6 @@
 ---- determinar si debe ser dirigida a un servicio específico. En este caso, el predicado "Path=/users/" 
 ---- se usa para verificar si la ruta de la solicitud coincide con el patrón "/users/". 
 ---- Esto significa que cualquier solicitud que comience con "/users/" será dirigida al microservicio identificado por el "id".
+
+---- Por ultimo solo nos queda ir a la configuracion de los feign client y quitar el puerto que hemos dado 
+---- a los clientes feign de carro y moto ya que ese puerto lo asignamos por defecto en eureka-server

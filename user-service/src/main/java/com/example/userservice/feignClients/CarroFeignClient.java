@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.userservice.entities.Carro;
 
-@FeignClient(name = "car-service", url = "http://localhost:4002") 
+@FeignClient(name = "car-service") 
 @RequestMapping("/cars")
 // acabamos de indicar que vamos a acceder a un cliente feign es decir otro microservicio 
 // el cual le dimos por nombre carro-service y en la url le indicamos la ruta en la que ese microservicio se ejecuta
