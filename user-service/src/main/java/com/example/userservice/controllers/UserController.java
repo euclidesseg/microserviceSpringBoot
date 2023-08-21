@@ -161,7 +161,7 @@ public class UserController {
     }
     // fallBack para saveCar para cuando falle el servicio de carros llamara a este metodo
     @SuppressWarnings("unchecked")
-    public ResponseEntity<List<Carro>> fallBackSaveCars(@PathVariable("usuarioId") int id, @RequestBody Carro  car, RuntimeException excepcion){
+    public ResponseEntity<Carro> fallBackSaveCars(@PathVariable("usuarioId") int id, @RequestBody Carro  car, RuntimeException excepcion){
         return new ResponseEntity("El usuario: "+ id + " no puede guardar el carro" + car +" a entrado en tolerancia de fallo", HttpStatus.OK);
     }
 
@@ -173,11 +173,11 @@ public class UserController {
     }
     // fallBack para saveMoto para cuando falle el servicio de carros llamara a este metodo
     @SuppressWarnings("unchecked")
-    public ResponseEntity<List<Carro>> fallBackSaveMotos(@PathVariable("usuarioId") int id, @RequestBody Moto  moto, RuntimeException excepcion){
+    public ResponseEntity<Moto> fallBackSaveMotos(@PathVariable("usuarioId") int id, @RequestBody Moto  moto, RuntimeException excepcion){
         return new ResponseEntity("El usuario: "+ id + " no puede guardar la moto" + moto +" a entrado en tolerancia de fallo", HttpStatus.OK);
     }
     @SuppressWarnings("unchecked")
-    public ResponseEntity<List<Carro>> fallBackGetAllMotosAndCars(@PathVariable("usuarioId") int id, RuntimeException excepcion){
+    public ResponseEntity<Map<String, Object>> fallBackGetAllMotosAndCars(@PathVariable("usuarioId") int id, RuntimeException excepcion){
         return new ResponseEntity("El usuario: "+ id + " no puede acceder a sus vehivulos a entrado en tolerancia de fallo", HttpStatus.OK);
     }
 }

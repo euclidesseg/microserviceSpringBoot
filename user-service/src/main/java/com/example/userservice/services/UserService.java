@@ -78,14 +78,14 @@ public class UserService {
     // usuario
     @SuppressWarnings("unchecked")
     public List<Carro> getCars(int usuarioId) {
-        String url = "http://localhost:4002/cars/usuarios/query?userid=";
+        String url = "http://car-service/cars/usuarios/query?userid=";
         List<Carro> listCarros = restTemplate.getForObject(url + usuarioId, List.class);
         return listCarros;
     }
 
     @SuppressWarnings("unchecked")
     public List<Moto> getMotos(int usuarioId) {
-        String url = "http://localhost:4003/motos/byusuario/query?usuarioid=";
+        String url = "http://moto-service/motos/byusuario/query?usuarioid=";
         List<Moto> listMotos = restTemplate.getForObject(url + usuarioId, List.class);
         return listMotos;
     }
