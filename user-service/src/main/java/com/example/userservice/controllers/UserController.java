@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,8 @@ import com.example.userservice.entities.Carro;
 import com.example.userservice.entities.Moto;
 import com.example.userservice.models.UserModel;
 import com.example.userservice.services.UserService;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @RestController // indicamos con @RestController que esta clase sera un controlador de spring
 @RequestMapping("/users") // RequustMapping se unsa para asiganar una url a una clase o o metodo
@@ -96,6 +99,7 @@ public class UserController {
     // dos microservicios restantes
 
     // obtenermos los carros por id de usuario
+    @CircuitBreaker(name = "carsCb", fallbackMethod = "fallBackGetCars")//anotacion que me servira para implementar tolereancia a fallos con circuit-breaker
     @GetMapping(path = "/carros/{id}")
     public ResponseEntity<List<Carro>> getCarroByUserId(@PathVariable("id") int id) throws Exception {
         Optional<UserModel> usuario = this.userService.getUsuarioByid(id);
@@ -107,8 +111,9 @@ public class UserController {
     }
 
     // obtenemos las motos por id de usuario
+    @CircuitBreaker(name = "motosCb", fallbackMethod = "fallBackGetMotos") 
     @GetMapping(path = "/motos/{id}")
-    public ResponseEntity<List<Moto>> getMotoByUserId(@PathVariable("id") int id) throws Exception{
+    public ResponseEntity<List<Moto>> getMotoByUserId(@PathVariable("id") int id) throws Exception {
         Optional<UserModel> usuario = this.userService.getUsuarioByid(id);
         if (!usuario.isPresent()) {
             return ResponseEntity.notFound().build();
@@ -118,23 +123,61 @@ public class UserController {
         return ResponseEntity.ok(listMotos);
     }
 
-    // este metodo se encargara de usar el servicio de feignclient para comunicarse con el microservico de carros y guardar un carro
+    // este metodo se encargara de usar el servicio de feignclient para comunicarse
+    // con el microservico de carros y guardar un carro
     @PostMapping(path = "/cars/{usuarioId}") // el usuarioId sreia el id del usuaio que asosriaremos al carro
-    public ResponseEntity<Carro> saveCar(@PathVariable("usuarioId") int id,  @RequestBody Carro car){
+    @CircuitBreaker(name = "carsCb", fallbackMethod = "fallBackSaveCars")//anotacion que me servira para implementar tolereancia a fallos con circuit-breaker
+    public ResponseEntity<Carro> saveCar(@PathVariable("usuarioId") int id, @RequestBody Carro car) {
         Carro newCar = this.userService.saveCar(id, car);
         return ResponseEntity.ok(newCar);
     }
-    // este metodo se encargara de usar el servicio de feignclient para comunicarse con el microservico de motos y guardar una moto
+
+    // este metodo se encargara de usar el servicio de feignclient para comunicarse
+    // con el microservico de motos y guardar una moto
     @PostMapping(path = "/motos/{usuarioId}")
-    public ResponseEntity<Moto> saveMoto(@PathVariable("usuarioId") int id,  @RequestBody Moto moto){
+    @CircuitBreaker(name = "motosCb", fallbackMethod = "fallBackSaveMotos") //anotacion que me servira para implementar tolereancia a fallos con circuit-breaker
+    public ResponseEntity<Moto> saveMoto(@PathVariable("usuarioId") int id, @RequestBody Moto moto) {
         Moto newMoto = this.userService.saveMoto(id, moto);
         return ResponseEntity.ok(newMoto);
     }
 
-    // Este metodo me obtiene todos loe vehivulos de un usuario tanto motos como carros
+    // Este metodo me obtiene todos loe vehivulos de un usuario tanto motos como
+    // carros
     @GetMapping(path = "/query2")
-    public ResponseEntity<Map<String, Object>> getMotosAndCarsByUser(@RequestParam("userid") int userid){
+    @CircuitBreaker(name = "todosCb", fallbackMethod = "fallBackGetAllMotosAndCars") //anotacion que me servira para implementar tolereancia a fallos con circuit-breaker
+    public ResponseEntity<Map<String, Object>> getMotosAndCarsByUser(@RequestParam("userid") int userid) {
         Map<String, Object> result = this.userService.getAllVehicles(userid);
         return ResponseEntity.ok(result);
+    }
+
+
+
+    // Desde aqui agrego metodos fallBack para la tolerancia a fallos indicaran el retorno de cada circuitBreaker
+
+    // fallBack para getCarros para cuando falle el servicio de carros llamara a este metodo
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<List<Carro>> fallBackGetCars(@PathVariable("usuarioId") int id, RuntimeException excepcion){
+        return new ResponseEntity("El usuario: "+ id + " no se puede ejecutar y a entrado a tolerancia de fallo", HttpStatus.OK);
+    }
+    // fallBack para saveCar para cuando falle el servicio de carros llamara a este metodo
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<List<Carro>> fallBackSaveCars(@PathVariable("usuarioId") int id, @RequestBody Carro  car, RuntimeException excepcion){
+        return new ResponseEntity("El usuario: "+ id + " no puede guardar el carro" + car +" a entrado en tolerancia de fallo", HttpStatus.OK);
+    }
+
+
+    // fallBack para getMotos para cuando falle el servicio de carros llamara a este metodo
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<List<Moto>> fallBackGetMotos(@PathVariable("usuarioId") int id, RuntimeException excepcion){
+        return new ResponseEntity("El usuario: "+ id + " no se puede ejecutar y a entrado a tolerancia de fallo", HttpStatus.OK);
+    }
+    // fallBack para saveMoto para cuando falle el servicio de carros llamara a este metodo
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<List<Carro>> fallBackSaveMotos(@PathVariable("usuarioId") int id, @RequestBody Moto  moto, RuntimeException excepcion){
+        return new ResponseEntity("El usuario: "+ id + " no puede guardar la moto" + moto +" a entrado en tolerancia de fallo", HttpStatus.OK);
+    }
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<List<Carro>> fallBackGetAllMotosAndCars(@PathVariable("usuarioId") int id, RuntimeException excepcion){
+        return new ResponseEntity("El usuario: "+ id + " no puede acceder a sus vehivulos a entrado en tolerancia de fallo", HttpStatus.OK);
     }
 }

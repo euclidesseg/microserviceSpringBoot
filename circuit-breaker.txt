@@ -1,0 +1,54 @@
+==== CIRCUIT BREAKER ====
+---- El patrón Circuit Breaker (interruptor automático o disyuntor en español)
+---- es un patrón de diseño de software que se utiliza en sistemas distribuidos 
+---- y aplicaciones que interactúan con servicios externos o dependencias. 
+---- tambien se puede interpretar como mecanimo para la tolerancia de fallos en arquitecturas distribuidas
+
+---- se mantiene en 4 estados diferentes 
+---- Cerrado(closed) . las solicitudes o peticiones fluyen con normalidad
+---- Monitoreo : el sircuit breaker monitorea las solicitudes y si estas soprepasan una tasa definida o se vuelven lentas  entra a  estado
+     Abierto 
+
+---- Abierto(open )  :  Cuando se detecta un problema en algun servicio sicuit breaker bloquea las solicitudes hacia ese para no afectar
+---- otros servicios
+
+---- Medio Abierto(Half-Open): despes de un tiempo permite que algunas solicitudes fluyan a travez de los servicios para verificar 
+---- que el problema se ha solucionado y si es asi vuelve al estado Cerrado(Closed)
+
+---- Entonces vamos a la implementacion lo primero es irnos al proyecto user-service que es el que va a tener la tolerancia a fallos
+---- y agregamos dos dependencias spring boot actuator
+---- y l alibreria que usaremos para implementar circuit breaker sera:  spring-cloud-starter-circuitbreaker-resilience4j
+
+---- tambien instalaremos otra dependencia spring-boot-starter-aop, 
+---- Esta dependencia se utiliza para agregar el soporte de Programación Orientada a Aspectos (AOP) a tu aplicación Spring Boot.
+
+---- al archivo config server le cambiamos la rama de ejecuciona circuit-breaker
+
+---- seguido nos dirigimos al arvhivo de configuracion de de user-service.yaml para añadir configuraicon de de circuit-breaker
+---- antes vamos a esta https://resilience4j.readme.io/docs/getting-started-3 la web oficial de recilience4j a copiar una 
+---- configuracion resilience4j.circuitbreaker:
+    instances:
+        backendA:   // podemos eliminar
+            registerHealthIndicator: true // podemos eliminar 
+            slidingWindowSize: 10  // podemos eliminar
+            
+        backendB: => especifica el nombre del servicio o microservicio
+            registerHealthIndicator                      => Indica si se debe registrar un indicador de salud para "backendB".
+            slidingWindowSize                       => Tamaño de la ventana deslizante en "backendB".
+            permittedNumberOfCallsInHalfOpenState => Número permitido de llamadas en estado semiabierto de "backendB".
+            slidingWindowType                       => Tipo de ventana deslizante (basada en tiempo) en "backendB".
+            minimumNumberOfCalls                        => Número mínimo de llamadas en la ventana de "backendB".
+            waitDurationInOpenState                         => Duración de espera en estado abierto de "backendB".
+            failureRateThreshold                        => Umbral de tasa de falla para "backendB".
+            eventConsumerBufferSize                         => Tamaño del búfer del consumidor de eventos en "backendB".
+
+---- Como hemos decidido agregarla en el microservivio de usuario debido a que este es el el servicio 
+---- que llamara al resto de microservicios cuando se buscan todos los vehivulos por usuarios
+
+---- ahora nos dirigimos al controlador de usuario y en todos los metodos que llaman a otros servicios agregamos la anotacion 
+---- @CircuitBreaker(name = "motosCb", fallbackMethod = "fallBackSaveMotos") // los nombres es segun hallamos configurado 
+---- el nuestro user-service.yaml y agregado los servicios ahi.
+
+---- ahora lo que haremos sera agregar un metodo por cada anotacion que hallamos creado en el contralador de usuario
+---- es decir debemos especificar que respuesta retornara el servicio cuando el circuit-breaker este en open(cuando el otreo servicio 
+---- este en fallo)
