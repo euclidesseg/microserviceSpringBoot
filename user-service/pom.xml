@@ -98,6 +98,24 @@
         <artifactId>spring-boot-starter-aop</artifactId>
         <version>2.5.4</version>
     </dependency>
+    <!-- provee los decoradores -->
+    <dependency>
+        <groupId>io.github.resilience4j</groupId>
+        <artifactId>resilience4j-all</artifactId>
+        <version>1.7.1</version>
+    </dependency>
+    <!-- por una excepcion que se lanza -->
+    <dependency>
+        <groupId>io.github.resilience4j</groupId>
+        <artifactId>resilience4j-bulkhead</artifactId>
+        <version>1.7.1</version>
+    </dependency>
+    <dependency>
+        <groupId>io.github.resilience4j</groupId>
+        <artifactId>resilience4j-circuitbreaker</artifactId>
+        <version>1.7.1</version>
+    </dependency>
+
 </dependencies>
 
 <dependencyManagement>
