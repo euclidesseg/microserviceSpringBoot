@@ -16,7 +16,7 @@ public class CircuitBreakerConfiguration {
     public CircuitBreaker circuitBreaker(){
       return CircuitBreaker.of("config-cb", this.buildConfig1());
     }
-
+    
     CircuitBreakerConfig buildConfig1(){
           return CircuitBreakerConfig.custom()//retornamos luego de crar una configuracion customizada
             .slidingWindowType(SlidingWindowType.COUNT_BASED)

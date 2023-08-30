@@ -28,7 +28,11 @@
         <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <!-- ... otras dependencias ... -->
-    
+    <dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<optional>true</optional>
+	</dependency>
     <!-- Dependencia para JPA (Hibernate) -->
     <dependency>
         <groupId>org.hibernate.javax.persistence</groupId>
@@ -83,7 +87,7 @@
     <!-- Actuator para endpoints de supervisión y administración -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-actuator</artifactId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
     
     <!-- Dependencia para Resilience4j (circuit breaker) -->

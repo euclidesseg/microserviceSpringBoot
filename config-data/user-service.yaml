@@ -28,7 +28,7 @@ resilience4j.circuitbreaker:
       slidingWindowType: TIME_BASED
       minimumNumberOfCalls: 4
       waitDurationInOpenState: 5s
-      failureRateThreshold: 50
+      failureRateThreshold: 50 
       eventConsumerBufferSize: 10
     motosCB:
       registerHealthIndicator: true
