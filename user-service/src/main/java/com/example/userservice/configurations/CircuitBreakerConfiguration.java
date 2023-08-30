@@ -17,21 +17,6 @@ public class CircuitBreakerConfiguration {
       return CircuitBreaker.of("config-cb", this.buildConfig1());
     }
 
-    @Bean
-    public CircuitBreaker carsCircuitBreaker() {
-        return CircuitBreaker.of("carsCB", buildConfig1());
-    }
-    
-    @Bean
-    public CircuitBreaker motosCircuitBreaker() {
-        return CircuitBreaker.of("motosCB", buildConfig2());
-    }
-    
-    @Bean
-    public CircuitBreaker todosCircuitBreaker() {
-        return CircuitBreaker.of("todosCB", buildConfig3());
-    }
-    
     CircuitBreakerConfig buildConfig1(){
           return CircuitBreakerConfig.custom()//retornamos luego de crar una configuracion customizada
             .slidingWindowType(SlidingWindowType.COUNT_BASED)
