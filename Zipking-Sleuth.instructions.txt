@@ -1,0 +1,32 @@
+---- Zipkin es una herramienta de rastreo y seguimiento de aplicaciones que ayuda a visualizar
+---- y solucionar problemas de rendimiento en sistemas distribuidos.
+
+
+---- Sleuth Es una librería que implementa una solución de trazado distribuido para Spring Cloud. 
+---- Con tan solo incluir la dependencia con Sleuth en los microservicios, 
+---- dotamos al ecosistema de un mecanismo automático de identificación de peticiones, 
+---- ya que añade varios campos útiles a las mismas para identificarlas.
+
+
+---- para implementar vamos a ir a cada uno de nuestros servicios a agregar las siguientes dependencias
+
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-sleuth</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+</dependency>
+
+
+---- seguido vamos a la pagina oficial de Zipkin a descargar el jar de Zipkin
+---- descargamos el jar de ZipKin y lo pegamos en nuestra carpeta que engloba a los servicios
+
+---- agregamos el archivo .gitignores y agregamos ese archivo jar para que no se suba al repositorio
+
+---- ahora vamos a agregar una configuracion en cada uno de los archivos de configuracion de config data de los
+---- microservicios que seria la siguiente
+---- spring:
+        application:
+            zipkin: http//localhost:9411

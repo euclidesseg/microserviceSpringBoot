@@ -3,6 +3,7 @@ server:
 spring:
   application:
     name: user-service
+    zipkin: http//localhost:9411
   datasource:
     url: jdbc:postgresql://localhost:5433/springServices
     username: postgres

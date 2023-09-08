@@ -65,6 +65,17 @@
     		<groupId>org.springframework.cloud</groupId>
     		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		
+		<dependency>
+        <!-- Spring Cloud Sleuth para trazabilidad de solicitudes -->
+        	<groupId>org.springframework.cloud</groupId>
+        	<artifactId>spring-cloud-starter-sleuth</artifactId>
+    	</dependency>
+    	<dependency>
+    	    <!-- Spring Cloud Sleuth Zipkin para envío de trazas a Zipkin -->
+    	    <groupId>org.springframework.cloud</groupId>
+    	    <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+    	</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
