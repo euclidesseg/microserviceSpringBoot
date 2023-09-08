@@ -1,8 +1,8 @@
 ==== Eureka ====
 ---- Es hora de empezar a ver que es eureka 
 
----- Eureka es un servidor para el registro y localizacion de microservicios, balanceo de carga y tolereancia a 
----- fallos. La funcion de eureka es registrar las diferentas instancias de microservicios existentes,
+---- Eureka es un servidor para el registro y localizacion de microservicios, balanceo de carga 
+---- La funcion de eureka es registrar las diferentas instancias de microservicios existentes,
 ---- su localizacion, estado, etc:
 
 ---- Es decir, es un servidor parecido al (IIS) de microsoft solo que eureka es solo para spring-boot
@@ -40,7 +40,7 @@
 ---- eureka:
   client:
     fetch-registry: true
-    register-witch-eureka: true
+    register-with-eureka: true
     service-url:
       default-zone: http://localhost:4000/eureka
     instance: localhost

@@ -1,5 +1,6 @@
 ---- Zipkin es una herramienta de rastreo y seguimiento de aplicaciones que ayuda a visualizar
 ---- y solucionar problemas de rendimiento en sistemas distribuidos.
+---- esto nos ayuda a verficar cuando un servicio dentro de nuestro ecosistema realiza peticiones
 
 
 ---- Sleuth Es una librería que implementa una solución de trazado distribuido para Spring Cloud. 

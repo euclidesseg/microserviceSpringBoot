@@ -5,7 +5,7 @@
 
 ---- Gateway traduse puerta de enlace y su funcionalidad es:
 ---- Permitirnos la comunicacion e intercambi de informacion 
------con fiferentes sistemas o servicios desde la misma ip
+-----con diferentes sistemas o servicios desde la misma ip
 
 ---- entonces creamos en spring initializer un nuevo proyecto llamado gateway service con las siguientes dependencias
 ---- spring web 
