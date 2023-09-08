@@ -30,3 +30,6 @@
 ---- spring:
         application:
             zipkin: http//localhost:9411
+
+---- ahora subimos todos los cambios al git y corremos el archivo de Zipking 
+---- de la siguiente manera java -jar zipkin-server-2.24.3-exec.jar
